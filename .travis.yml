@@ -2,7 +2,7 @@ language: csharp
 solution: csharp.dotnetcore.katas.simple.sln
 
 sudo: required
-dotnet: 1.0.0-preview2-1-003177
+dotnet: 1.0.4
 
 matrix:
   include:
