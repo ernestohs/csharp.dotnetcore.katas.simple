@@ -9,7 +9,7 @@ environment:
 init:
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
 before_build:
-- appveyor-retry dotnet restore -v Minimal
+- appveyor-retry dotnet restore
 build_script:
 - dotnet build "src\katas.basic.csproj" -c %CONFIGURATION%
 after_build:
