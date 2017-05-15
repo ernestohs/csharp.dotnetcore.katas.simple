@@ -19,4 +19,4 @@ branches:
 
 script:
   - dotnet restore
-  - dotnet test
+  - dotnet test "tests\katas.basic.tests.csproj"
