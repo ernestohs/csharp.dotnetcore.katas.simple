@@ -1,18 +1,19 @@
-version: '1.0.{build}'
+version: '1.0.{build}'  
 configuration:
-- Debug
 - Release
-platform: Any CPU
-environment:
+platform:  
+- win7-x64
+environment:  
   # Don't report back to the mothership
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
-init:
+init:  
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
-before_build:
-- appveyor-retry dotnet restore
-build_script:
-- dotnet build "src\katas.basic.csproj" -c %CONFIGURATION%
-after_build:
-- dotnet publish "src\katas.basic.csproj" -c %CONFIGURATION%
+before_build:  
+- appveyor-retry dotnet restore -v Minimal
+build_script:  
+- dotnet build "src\katas.basic" -c %CONFIGURATION% -r %PLATFORM%  --no-dependencies --version-suffix %LABEL%
+- dotnet build "tests\katas.basic.tests" -c %CONFIGURATION% -r %PLATFORM% --no-dependencies --version-suffix %LABEL%
 test_script:
-- dotnet test "tests\katas.basic.tests.csproj" -c %CONFIGURATION%
+- dotnet test "tests\katas.basic.tests" -c %CONFIGURATION%
+cache:  
+- '%USERPROFILE%\.nuget\packages'
